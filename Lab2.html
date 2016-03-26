@@ -1,39 +1,74 @@
 <!DOCTYPE html>
 <html>
     <body>
-
     <button id="myBtn">Try it</button><br>
-    <form method="post">
-        <input type="text" placeholder="First Name"><br>
-        <input type="text" placeholder="Last Name"><br>
-        <input type="text" placeholder="ID number"><br>
-        <textarea></textarea><br>
+    <form>
+        <div id="txts">
+        <div class="exp"> Only letters with the first letter capitalized</div><input type="text" placeholder="First Name"><br>
+        <div class="exp"> Only letters with the first letter capitalized</div><input type="text" placeholder="Last Name"><br> 
+        <div class="exp"> 9 digit number</div><input type="text" placeholder="ID number"><br> 
+        <div class="exp"> Up to 25 words</div><textarea placeholder="About You"></textarea><br>
+        <textarea id="txt"></textarea><br>
+        </div>
         <div id="buttons">
-        <input type="button" value="1">
-        <input type="button" value="2">
-        <input type="button" value="3"><br>
-        <input type="button" value="4">
-        <input type="button" value="5">
-        <input type="button" value="6"><br>
-        <input type="button" value="7">
-        <input type="button" value="8">
-        <input type="button" value="9"><br>
-        <input type="button" value="0"><br>
-        <input type="button" value="C">
-        <input type="button" value="<<">
-        <input type="button" value=">>"><br>
-        <input type="button" value="Save">
+        <input id="1" type="button" value="1">
+        <input id="2" type="button" value="2">
+        <input id="3" type="button" value="3"><br>
+        <input id="4" type="button" value="4">
+        <input id="5" type="button" value="5">
+        <input id="6" type="button" value="6"><br>
+        <input id="7" type="button" value="7">
+        <input id="8" type="button" value="8">
+        <input id="9" type="button" value="9"><br>
+        <input id="0" type="button" value="0"><br>
+        <input id="c" type="button" value="C">
+        <input id="<<" type="button" value="<<">
+        <input id=">>" type="button" value=">>"><br>
+        <input id="save" type="button" value="Save">
         </div>
     </form>
     <span>
     Hours Worked This Week:
     </span>
-            <script type="text/javascript">
-
-document.getElementById("myBtn").addEventListener("click", 
-function(){document.getElementById("demo").innerHTML = "Hello World";});
-    
-                
+    <script type="text/javascript">
+        document.getElementById("myBtn").addEventListener("click",function(){document.getElementById("txt").innerHTML = "Hello World";});
+        document.getElementById("1").addEventListener("click",function(){document.getElementById("txt").innerHTML += "1";});
+        document.getElementById("2").addEventListener("click",function(){document.getElementById("txt").innerHTML += "2";});
+        document.getElementById("3").addEventListener("click",function(){document.getElementById("txt").innerHTML += "3";});
+        document.getElementById("4").addEventListener("click",function(){document.getElementById("txt").innerHTML += "4";});
+        document.getElementById("5").addEventListener("click",function(){document.getElementById("txt").innerHTML += "5";});
+        document.getElementById("6").addEventListener("click",function(){document.getElementById("txt").innerHTML += "6";});
+        document.getElementById("7").addEventListener("click",function(){document.getElementById("txt").innerHTML += "7";});
+        document.getElementById("8").addEventListener("click",function(){document.getElementById("txt").innerHTML += "8";});
+        document.getElementById("9").addEventListener("click",function(){document.getElementById("txt").innerHTML += "9";});
+        document.getElementById("0").addEventListener("click",function(){document.getElementById("txt").innerHTML += "0";});
+        document.getElementById("c").addEventListener("click",function(){document.getElementById("txt").innerHTML = "";});
+        document.getElementById("<<").addEventListener("click",function(){document.getElementById("txt").innerHTML+= "<<";});
+        document.getElementById(">>").addEventListener("click",function(){document.getElementById("txt").innerHTML+= ">>";});
     </script>
     </body>
+    <style>
+        .exp{
+            font-size: 8px;
+            opacity: .55;
+        }
+        #txts{
+            position: fixed;
+            right: 50px;
+            
+        }
+        #buttons{
+            position: fixed;
+            left: 50px;
+        }
+        html{
+            background: darkblue;
+            color: white;
+        }
+        span{
+            position: fixed;
+            top: 500px;
+            left: 50%;
+        }
+    </style>
 </html>
