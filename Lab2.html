@@ -2,13 +2,13 @@
 <html>
     <body>
     <button id="myBtn">Try it</button><br>
-    <form>
+    <form name="myForm">
         <div id="txts">
-        <div class="exp"> Only letters with the first letter capitalized</div><input type="text" placeholder="First Name"><br>
-        <div class="exp"> Only letters with the first letter capitalized</div><input type="text" placeholder="Last Name"><br> 
-        <div class="exp"> 9 digit number</div><input type="text" placeholder="ID number"><br> 
-        <div class="exp"> Up to 25 words</div><textarea placeholder="About You"></textarea><br>
-        <textarea id="txt"></textarea><br>
+        <div class="exp"> Only letters with the first letter capitalized</div><input type="text" name="fname" placeholder="First Name"><br>
+        <div class="exp"> Only letters with the first letter capitalized</div><input type="text" name="lname" placeholder="Last Name"><br> 
+        <div class="exp"> 9 digit number</div><input type="text" name="idn" placeholder="ID number"><br> 
+        <div class="exp"> Up to 25 words</div><textarea name="about" placeholder="About You"></textarea><br>
+        <textarea readonly id="txt"></textarea><br>
         </div>
         <div id="buttons">
         <input id="1" type="button" value="1">
@@ -31,7 +31,22 @@
     Hours Worked This Week:
     </span>
     <script type="text/javascript">
-        document.getElementById("myBtn").addEventListener("click",function(){document.getElementById("txt").innerHTML = "Hello World";});
+
+        document.getElementById("myBtn").addEventListener("click",function s(){
+            //get first name input. Check if it fits the criteria of first name
+            var f = document.forms["myForm"]["fname"].value;
+            var l = document.forms["myForm"]["lname"].value;
+            var id = document.forms["myForm"]["idn"].value;
+            var about = document.forms["myForm"]["about"].value;            
+            var b = false;
+            if(f.charAt(0) == f.charAt(0).toUpperCase() && l.charAt(0) == l.charAt(0).toUpperCase()){
+                //check if the first letter of the name is capital
+                window.alert("first name and last name have capital letters");
+            }
+            else{
+                window.alert("error with your syntax")
+            }
+        });
         document.getElementById("1").addEventListener("click",function(){document.getElementById("txt").innerHTML += "1";});
         document.getElementById("2").addEventListener("click",function(){document.getElementById("txt").innerHTML += "2";});
         document.getElementById("3").addEventListener("click",function(){document.getElementById("txt").innerHTML += "3";});
@@ -48,27 +63,18 @@
     </script>
     </body>
     <style>
+        #txt{
+            resize: none;
+        }
         .exp{
-            font-size: 8px;
+            font-size: 9px;
             opacity: .55;
         }
-        #txts{
-            position: fixed;
-            right: 50px;
-            
-        }
-        #buttons{
-            position: fixed;
-            left: 50px;
-        }
+
         html{
             background: darkblue;
             color: white;
         }
-        span{
-            position: fixed;
-            top: 500px;
-            left: 50%;
-        }
+
     </style>
 </html>
