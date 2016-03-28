@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html id="html">
+    <head>
+        <title>
+            Calculator
+        </title>
+    </head>
     <body>
-    <button id="myBtn">submit</button><br>
+        
     <form name="myForm">
         <div id="txts">
         <div class="exp"> Only letters with the first letter capitalized</div><input type="text" name="fname" placeholder="First Name"><br>
@@ -27,6 +32,7 @@
         <input id="save" type="button" value="S">
         </div>
     </form>
+    <button id="myBtn">submit</button><br>
     <span id="hw">Hours Worked This Week:</span>
     <div id="invalidHOURS">
     </div>
@@ -41,68 +47,51 @@
     </div>
     <script type="text/javascript">
 
-        document.getElementById("myBtn").addEventListener("click",function s(){
+        document.getElementById("myBtn").addEventListener("click",function Validate(){
             //get first name input. Check if it fits the criteria of first name
             var f = document.forms["myForm"]["fname"].value;
             var l = document.forms["myForm"]["lname"].value;
             var id = document.forms["myForm"]["idn"].value;
             var about = document.forms["myForm"]["about"].value;            
-            var b = false;
+            var b = true;
             var errorMessage=" ";
-            if(f.charAt(0) == f.charAt(0).toUpperCase()  && f.length>0){
+            if(!(f.charAt(0) == f.charAt(0).toUpperCase() && f.length>0)){
                 //check if the first letter of the name is capital
-            }
-            else{
-                //the first name is invalid
-                errorMessage+="the first letter of the first name needs to be capitalized \n";
                 document.getElementById("f").style.display = "inline";
-
-               //window.alert("the first letter of the first name needs to be capitalized");   
+                b=false;
             }
-            if(l.charAt(0) == l.charAt(0).toUpperCase() && l.length>0){
+            if(!(l.charAt(0) == l.charAt(0).toUpperCase() && l.length>0)){
                 //check if the first letter of the name is capital
-            }
-            else{
-                //the last name is invalid
-                errorMessage+="the first letter of the last name needs to be capitalized \n";
                 document.getElementById("l").style.display = "inline";
-                //window.alert("the first letter of the last name needs to be capitalized");
+                b=false;
             }
-            if(!isNaN(id) && id.length==9){
+            if(!(!isNaN(id) && id.length==9)){
                 //check if id is 9 digits and a number
-            }
-            else{
-                //the id is invalid
                 errorMessage+= "the id needs to be 9 digits \n"; 
                 document.getElementById("i").style.display = "inline";
-                //window.alert("the id needs to be 9 digits");
+                b=false;
             }
-
-            if(about.length < 26){
-                            b = true;
-            }
-            else{
-                
+            if(!(about.length < 26)){
                 //the about is invalid
                 errorMessage += "the about me needs to be less than 26 chars \n"; 
                 document.getElementById("a").style.display = "inline";
-                //window.alert("the about me needs to be less than 26 chars");
-            }
-            
-            if(errorMessage==" "){
+                b=false;
+            }            
+            if(b){
                 var alertstring = "CONGRATS! your input is valid\nFirst Name:"+f+"\nLast Name:"+l+"\nID Number:"+id+"\nAbout Me:"+about;
                 if(document.forms["myForm"]["result"].value.length>0){
+                    //if there is a result append it. 
                     alertstring += "\nCurrent Result:"+document.forms["myForm"]["result"].value;
                 }
                 if(document.getElementById("hw").innerHTML.length > 23){
+                    //if there is an hours worked append it. 
                     alertstring+= "\n" + document.getElementById("hw").innerHTML;
                 }
                 window.alert(alertstring);
-                }//add hoursworked this week and current result
-                else{
-                //window.alert(errorMessage);
+                }
+            else{
+                //if some input is invalid change the background color
                 document.getElementById("html").style.background = "yellow";
-                //window.alert(document.getElementById("hw").innerHTML.length);
                 }
         });
         document.getElementById("1").addEventListener("click",function(){document.getElementById("txt").innerHTML += "1";});
@@ -116,36 +105,37 @@
         document.getElementById("9").addEventListener("click",function(){document.getElementById("txt").innerHTML += "9";});
         document.getElementById("0").addEventListener("click",function(){document.getElementById("txt").innerHTML += "0";});
         document.getElementById("c").addEventListener("click",function(){document.getElementById("txt").innerHTML = "";});
-        document.getElementById("<<").addEventListener("click",function(){
-            //document.getElementById("txt").innerHTML+= "";
+        document.getElementById("<<").addEventListener("click",function leftShift(){
+            //get the value from result
             var result = document.forms["myForm"]["result"].value;
-            //window.alert(result);
+            //check if the value is not blank
             if(result.length>0){
             result = result<<1;
-            //window.alert(result);
             document.getElementById("txt").innerHTML= result;
         }
         });
-        document.getElementById(">>").addEventListener("click",function(){
-            //document.getElementById("txt").innerHTML+= "";
+        document.getElementById(">>").addEventListener("click",function rightShift(){
+            //get the value from result
             var result = document.forms["myForm"]["result"].value;
-            //window.alert(result);
+            //check if the value is not blank
             if(result.length>0){
             result = result>>>1;
-            //window.alert(result);
             document.getElementById("txt").innerHTML= result;
             }
         });
         document.getElementById("save").addEventListener("click",function(){
+            //check if the result is not blank
             if(document.forms["myForm"]["result"].value.length>0){
+                //add it to Hours Worked
                 document.getElementById("hw").innerHTML += document.forms["myForm"]["result"].value+",";
+                //clear the invalid hours error message
                 document.getElementById("invalidHOURS").innerHTML ="";
             }
             else{
                 document.getElementById("hw").innerHTML ="Hours Worked This Week:";
+                //create the invalid hours error message
                 document.getElementById("invalidHOURS").innerHTML ="<br>CANNOT SAVE INVALID AMOUNT OF HOURS\n";
             }
-            //if the input is zero reset the field and alert them
         });
     </script>
     </body>
@@ -175,7 +165,6 @@
             font-size: 9px;
             opacity: .55;
         }
-
         html{
             background: lightblue;
             color: black;
