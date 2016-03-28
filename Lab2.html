@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html id="html">
     <body>
-    <button id="myBtn">Try it</button><br>
+    <button id="myBtn">submit</button><br>
     <form name="myForm">
         <div id="txts">
         <div class="exp"> Only letters with the first letter capitalized</div><input type="text" name="fname" placeholder="First Name"><br>
         <div class="exp"> Only letters with the first letter capitalized</div><input type="text" name="lname" placeholder="Last Name"><br> 
         <div class="exp"> 9 digit number</div><input type="text" name="idn" placeholder="ID number"><br> 
         <div class="exp"> Up to 25 words</div><textarea name="about" placeholder="About You"></textarea><br>
-        <textarea readonly id="txt"></textarea><br>
+        <textarea name="result" readonly id="txt"></textarea><br>
         </div>
         <div id="buttons">
         <input id="1" type="button" value="1">
@@ -24,12 +24,21 @@
         <input id="c" type="button" value="C">
         <input id="<<" type="button" value="<<">
         <input id=">>" type="button" value=">>"><br>
-        <input id="save" type="button" value="Save">
+        <input id="save" type="button" value="S">
         </div>
     </form>
-    <span>
-    Hours Worked This Week:
-    </span>
+    <span id="hw">Hours Worked This Week:</span>
+    <div id="invalidHOURS">
+    </div>
+    <div>
+        <!-- have each error message and the display is none. once submitted,
+                make the specific message display available.
+                -->
+        <p id="f">the first letter of the first name needs to be capitalized<br></p>
+        <p id="l">the first letter of the last name needs to be capitalized<br></p>
+        <p id="i">the id needs to be 9 digits<br></p>
+        <p id="a">the about me needs to be less than 26 chars<br></p>
+    </div>
     <script type="text/javascript">
 
         document.getElementById("myBtn").addEventListener("click",function s(){
@@ -39,13 +48,62 @@
             var id = document.forms["myForm"]["idn"].value;
             var about = document.forms["myForm"]["about"].value;            
             var b = false;
-            if(f.charAt(0) == f.charAt(0).toUpperCase() && l.charAt(0) == l.charAt(0).toUpperCase()){
+            var errorMessage=" ";
+            if(f.charAt(0) == f.charAt(0).toUpperCase()  && f.length>0){
                 //check if the first letter of the name is capital
-                window.alert("first name and last name have capital letters");
             }
             else{
-                window.alert("error with your syntax")
+                //the first name is invalid
+                errorMessage+="the first letter of the first name needs to be capitalized \n";
+                document.getElementById("f").style.display = "inline";
+
+               //window.alert("the first letter of the first name needs to be capitalized");   
             }
+            if(l.charAt(0) == l.charAt(0).toUpperCase() && l.length>0){
+                //check if the first letter of the name is capital
+            }
+            else{
+                //the last name is invalid
+                errorMessage+="the first letter of the last name needs to be capitalized \n";
+                document.getElementById("l").style.display = "inline";
+                //window.alert("the first letter of the last name needs to be capitalized");
+            }
+            if(!isNaN(id) && id.length==9){
+                //check if id is 9 digits and a number
+            }
+            else{
+                //the id is invalid
+                errorMessage+= "the id needs to be 9 digits \n"; 
+                document.getElementById("i").style.display = "inline";
+                //window.alert("the id needs to be 9 digits");
+            }
+
+            if(about.length < 26){
+                            b = true;
+            }
+            else{
+                
+                //the about is invalid
+                errorMessage += "the about me needs to be less than 26 chars \n"; 
+                document.getElementById("a").style.display = "inline";
+                //window.alert("the about me needs to be less than 26 chars");
+            }
+            
+            if(errorMessage==" "){
+                var alertstring = "CONGRATS! your input is valid\nFirst Name:"+f+"\nLast Name:"+l+"\nID Number:"+id+"\nAbout Me:"+about;
+                if(document.forms["myForm"]["result"].value.length>0){
+                    alertstring += "\nCurrent Result:"+document.forms["myForm"]["result"].value;
+                }
+                if(document.getElementById("hw").innerHTML.length > 23){
+                    alertstring+= "\n" + document.getElementById("hw").innerHTML;
+                }
+                window.alert(alertstring);
+                }//add hoursworked this week and current result
+                else{
+                //window.alert(errorMessage);
+                document.getElementById("html").style.background = "yellow";
+                //window.alert(document.getElementById("hw").innerHTML.length);
+                }
         });
         document.getElementById("1").addEventListener("click",function(){document.getElementById("txt").innerHTML += "1";});
         document.getElementById("2").addEventListener("click",function(){document.getElementById("txt").innerHTML += "2";});
@@ -58,11 +116,58 @@
         document.getElementById("9").addEventListener("click",function(){document.getElementById("txt").innerHTML += "9";});
         document.getElementById("0").addEventListener("click",function(){document.getElementById("txt").innerHTML += "0";});
         document.getElementById("c").addEventListener("click",function(){document.getElementById("txt").innerHTML = "";});
-        document.getElementById("<<").addEventListener("click",function(){document.getElementById("txt").innerHTML+= "<<";});
-        document.getElementById(">>").addEventListener("click",function(){document.getElementById("txt").innerHTML+= ">>";});
+        document.getElementById("<<").addEventListener("click",function(){
+            //document.getElementById("txt").innerHTML+= "";
+            var result = document.forms["myForm"]["result"].value;
+            //window.alert(result);
+            if(result.length>0){
+            result = result<<1;
+            //window.alert(result);
+            document.getElementById("txt").innerHTML= result;
+        }
+        });
+        document.getElementById(">>").addEventListener("click",function(){
+            //document.getElementById("txt").innerHTML+= "";
+            var result = document.forms["myForm"]["result"].value;
+            //window.alert(result);
+            if(result.length>0){
+            result = result>>>1;
+            //window.alert(result);
+            document.getElementById("txt").innerHTML= result;
+            }
+        });
+        document.getElementById("save").addEventListener("click",function(){
+            if(document.forms["myForm"]["result"].value.length>0){
+                document.getElementById("hw").innerHTML += document.forms["myForm"]["result"].value+",";
+                document.getElementById("invalidHOURS").innerHTML ="";
+            }
+            else{
+                document.getElementById("hw").innerHTML ="Hours Worked This Week:";
+                document.getElementById("invalidHOURS").innerHTML ="<br>CANNOT SAVE INVALID AMOUNT OF HOURS\n";
+            }
+            //if the input is zero reset the field and alert them
+        });
     </script>
     </body>
     <style>
+        p{
+            color: red;
+            display: none;
+        }
+        #invalidHOURS{
+            color:darkred;
+            font-family: monospace;
+            font-size: 14;
+        }
+        #buttons input{
+            margin: 5px;
+        }
+        #buttons input[type="button"]{
+            height: 30px;
+            width: 30px;
+            background: black;
+            color: lightgreen;
+        }
         #txt{
             resize: none;
         }
@@ -72,9 +177,11 @@
         }
 
         html{
-            background: darkblue;
-            color: white;
+            background: lightblue;
+            color: black;
         }
-
+        body{
+            text-align: center;
+        }
     </style>
 </html>
