@@ -4,6 +4,149 @@
         <title>
             Calculator
         </title>
+        <style>
+        p{
+            color: red;
+            display: none;
+        }
+        #invalidHOURS{
+            color:darkred;
+            font-family: monospace;
+            font-size: 14;
+        }
+        #buttons input{
+            margin: 10px;
+        }
+        #buttons input[type="button"]{
+            height: 30px;
+            width: 39px;
+            background: black;
+            color: lightgreen;
+        }
+        #txt{
+            resize: none;
+        }
+        .exp{
+            font-size: 9px;
+            opacity: .55;
+        }
+        html{
+            background: lightblue;
+            color: black;
+        }
+        body{
+            text-align: center;
+        }
+        </style>
+        <script type="text/javascript">
+//            $("#myForm").submit(function(e){
+//                e.preventDefault();
+//            });
+            window.onload = function() {
+            document.getElementById("myBtn").addEventListener("click",function Validate(){
+                //get first name input. Check if it fits the criteria of first name
+                var f = document.forms["myForm"]["fname"].value;
+                var l = document.forms["myForm"]["lname"].value;
+                var id = document.forms["myForm"]["idn"].value;
+                var about = document.forms["myForm"]["about"].value;            
+                var b = true;
+                var errorMessage=" ";
+                if(!(f.charAt(0) == f.charAt(0).toUpperCase() && f.length>0)){
+                    //check if the first letter of the name is capital
+                    document.getElementById("f").style.display = "inline";
+                    b=false;
+                }
+                else{
+                    document.getElementById("f").style.display = "none";
+                }
+                if(!(l.charAt(0) == l.charAt(0).toUpperCase() && l.length>0)){
+                    //check if the first letter of the name is capital
+                    document.getElementById("l").style.display = "inline";
+                    b=false;
+                }
+                else{
+                    document.getElementById("l").style.display = "none";
+                }
+                if(!(!isNaN(id) && id.length==9)){
+                    //check if id is 9 digits and a number
+                    errorMessage+= "the id needs to be 9 digits and only numbers \n"; 
+                    document.getElementById("i").style.display = "inline";
+                    b=false;
+                }
+                else{
+                    document.getElementById("i").style.display = "none";
+                }
+                if(!(about.length < 26)){
+                    //the about is invalid
+                    errorMessage += "the about me needs to be less than 26 chars \n"; 
+                    document.getElementById("a").style.display = "inline";
+                    b=false;
+                }
+                else{
+                    document.getElementById("a").style.display = "none";
+                }
+                if(b){
+                    var alertstring = "CONGRATS! your input is valid\nFirst Name:"+f+"\nLast Name:"+l+"\nID Number:"+id+"\nAbout Me:"+about;
+                    if(document.forms["myForm"]["result"].value.length>0){
+                        //if there is a result append it. 
+                        alertstring += "\nCurrent Result:"+document.forms["myForm"]["result"].value;
+                    }
+                    if(document.getElementById("hw").innerHTML.length > 23){
+                        //if there is an hours worked append it. 
+                        alertstring+= "\n" + document.getElementById("hw").innerHTML;
+                    }
+                    window.alert(alertstring);
+                    }
+                else{
+                    //if some input is invalid change the background color
+                    document.getElementById("html").style.background = "yellow";
+                    }
+            });
+            document.getElementById("1").addEventListener("click",function(){document.getElementById("txt").innerHTML += "1";});
+            document.getElementById("2").addEventListener("click",function(){document.getElementById("txt").innerHTML += "2";});
+            document.getElementById("3").addEventListener("click",function(){document.getElementById("txt").innerHTML += "3";});
+            document.getElementById("4").addEventListener("click",function(){document.getElementById("txt").innerHTML += "4";});
+            document.getElementById("5").addEventListener("click",function(){document.getElementById("txt").innerHTML += "5";});
+            document.getElementById("6").addEventListener("click",function(){document.getElementById("txt").innerHTML += "6";});
+            document.getElementById("7").addEventListener("click",function(){document.getElementById("txt").innerHTML += "7";});
+            document.getElementById("8").addEventListener("click",function(){document.getElementById("txt").innerHTML += "8";});
+            document.getElementById("9").addEventListener("click",function(){document.getElementById("txt").innerHTML += "9";});
+            document.getElementById("0").addEventListener("click",function(){document.getElementById("txt").innerHTML += "0";});
+            document.getElementById("c").addEventListener("click",function(){document.getElementById("txt").innerHTML = "";});
+            document.getElementById("<<").addEventListener("click",function leftShift(){
+                //get the value from result
+                var result = document.forms["myForm"]["result"].value;
+                //check if the value is not blank
+                if(result.length>0){
+                result = result<<1;
+                document.getElementById("txt").innerHTML= result;
+            }
+            });
+            document.getElementById(">>").addEventListener("click",function rightShift(){
+                //get the value from result
+                var result = document.forms["myForm"]["result"].value;
+                //check if the value is not blank
+                if(result.length>0){
+                result = result>>>1;
+                document.getElementById("txt").innerHTML= result;
+                }
+            });
+            document.getElementById("save").addEventListener("click",function(){
+                //check if the result is not blank
+                if(document.forms["myForm"]["result"].value.length>0){
+                    //add it to Hours Worked
+                    document.getElementById("hw").innerHTML += document.forms["myForm"]["result"].value+",";
+                    //clear the invalid hours error message
+                    document.getElementById("invalidHOURS").innerHTML ="";
+                }
+                else{
+                    document.getElementById("hw").innerHTML ="Hours Worked This Week:";
+                    //create the invalid hours error message
+                    document.getElementById("invalidHOURS").innerHTML ="<br>CANNOT SAVE INVALID AMOUNT OF HOURS\n";
+                }
+            });
+            }
+        </script>
     </head>
     <body>
         
@@ -30,6 +173,7 @@
         <input id="<<" type="button" value="<<">
         <input id=">>" type="button" value=">>"><br>
         <input id="save" type="button" value="S">
+        <input id="sub" type="submit" value="SUB">
         </div>
     </form>
     <button id="myBtn">submit</button><br>
@@ -45,132 +189,7 @@
         <p id="i">the id needs to be 9 digits<br></p>
         <p id="a">the about me needs to be less than 26 chars<br></p>
     </div>
-    <script type="text/javascript">
 
-        document.getElementById("myBtn").addEventListener("click",function Validate(){
-            //get first name input. Check if it fits the criteria of first name
-            var f = document.forms["myForm"]["fname"].value;
-            var l = document.forms["myForm"]["lname"].value;
-            var id = document.forms["myForm"]["idn"].value;
-            var about = document.forms["myForm"]["about"].value;            
-            var b = true;
-            var errorMessage=" ";
-            if(!(f.charAt(0) == f.charAt(0).toUpperCase() && f.length>0)){
-                //check if the first letter of the name is capital
-                document.getElementById("f").style.display = "inline";
-                b=false;
-            }
-            if(!(l.charAt(0) == l.charAt(0).toUpperCase() && l.length>0)){
-                //check if the first letter of the name is capital
-                document.getElementById("l").style.display = "inline";
-                b=false;
-            }
-            if(!(!isNaN(id) && id.length==9)){
-                //check if id is 9 digits and a number
-                errorMessage+= "the id needs to be 9 digits \n"; 
-                document.getElementById("i").style.display = "inline";
-                b=false;
-            }
-            if(!(about.length < 26)){
-                //the about is invalid
-                errorMessage += "the about me needs to be less than 26 chars \n"; 
-                document.getElementById("a").style.display = "inline";
-                b=false;
-            }            
-            if(b){
-                var alertstring = "CONGRATS! your input is valid\nFirst Name:"+f+"\nLast Name:"+l+"\nID Number:"+id+"\nAbout Me:"+about;
-                if(document.forms["myForm"]["result"].value.length>0){
-                    //if there is a result append it. 
-                    alertstring += "\nCurrent Result:"+document.forms["myForm"]["result"].value;
-                }
-                if(document.getElementById("hw").innerHTML.length > 23){
-                    //if there is an hours worked append it. 
-                    alertstring+= "\n" + document.getElementById("hw").innerHTML;
-                }
-                window.alert(alertstring);
-                }
-            else{
-                //if some input is invalid change the background color
-                document.getElementById("html").style.background = "yellow";
-                }
-        });
-        document.getElementById("1").addEventListener("click",function(){document.getElementById("txt").innerHTML += "1";});
-        document.getElementById("2").addEventListener("click",function(){document.getElementById("txt").innerHTML += "2";});
-        document.getElementById("3").addEventListener("click",function(){document.getElementById("txt").innerHTML += "3";});
-        document.getElementById("4").addEventListener("click",function(){document.getElementById("txt").innerHTML += "4";});
-        document.getElementById("5").addEventListener("click",function(){document.getElementById("txt").innerHTML += "5";});
-        document.getElementById("6").addEventListener("click",function(){document.getElementById("txt").innerHTML += "6";});
-        document.getElementById("7").addEventListener("click",function(){document.getElementById("txt").innerHTML += "7";});
-        document.getElementById("8").addEventListener("click",function(){document.getElementById("txt").innerHTML += "8";});
-        document.getElementById("9").addEventListener("click",function(){document.getElementById("txt").innerHTML += "9";});
-        document.getElementById("0").addEventListener("click",function(){document.getElementById("txt").innerHTML += "0";});
-        document.getElementById("c").addEventListener("click",function(){document.getElementById("txt").innerHTML = "";});
-        document.getElementById("<<").addEventListener("click",function leftShift(){
-            //get the value from result
-            var result = document.forms["myForm"]["result"].value;
-            //check if the value is not blank
-            if(result.length>0){
-            result = result<<1;
-            document.getElementById("txt").innerHTML= result;
-        }
-        });
-        document.getElementById(">>").addEventListener("click",function rightShift(){
-            //get the value from result
-            var result = document.forms["myForm"]["result"].value;
-            //check if the value is not blank
-            if(result.length>0){
-            result = result>>>1;
-            document.getElementById("txt").innerHTML= result;
-            }
-        });
-        document.getElementById("save").addEventListener("click",function(){
-            //check if the result is not blank
-            if(document.forms["myForm"]["result"].value.length>0){
-                //add it to Hours Worked
-                document.getElementById("hw").innerHTML += document.forms["myForm"]["result"].value+",";
-                //clear the invalid hours error message
-                document.getElementById("invalidHOURS").innerHTML ="";
-            }
-            else{
-                document.getElementById("hw").innerHTML ="Hours Worked This Week:";
-                //create the invalid hours error message
-                document.getElementById("invalidHOURS").innerHTML ="<br>CANNOT SAVE INVALID AMOUNT OF HOURS\n";
-            }
-        });
-    </script>
     </body>
-    <style>
-        p{
-            color: red;
-            display: none;
-        }
-        #invalidHOURS{
-            color:darkred;
-            font-family: monospace;
-            font-size: 14;
-        }
-        #buttons input{
-            margin: 5px;
-        }
-        #buttons input[type="button"]{
-            height: 30px;
-            width: 30px;
-            background: black;
-            color: lightgreen;
-        }
-        #txt{
-            resize: none;
-        }
-        .exp{
-            font-size: 9px;
-            opacity: .55;
-        }
-        html{
-            background: lightblue;
-            color: black;
-        }
-        body{
-            text-align: center;
-        }
-    </style>
+    
 </html>
