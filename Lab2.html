@@ -39,10 +39,13 @@
         }
         </style>
         <script type="text/javascript">
-//            $("#myForm").submit(function(e){
-//                e.preventDefault();
-//            });
+
             window.onload = function() {
+                
+            function stopDefAction(evt) {
+                    evt.preventDefault();
+                }
+            document.getElementById('myBtn').addEventListener('click', stopDefAction, false);
             document.getElementById("myBtn").addEventListener("click",function Validate(){
                 //get first name input. Check if it fits the criteria of first name
                 var f = document.forms["myForm"]["fname"].value;
@@ -101,6 +104,10 @@
                     //if some input is invalid change the background color
                     document.getElementById("html").style.background = "yellow";
                     }
+                    
+                        
+
+                    
             });
             document.getElementById("1").addEventListener("click",function(){document.getElementById("txt").innerHTML += "1";});
             document.getElementById("2").addEventListener("click",function(){document.getElementById("txt").innerHTML += "2";});
@@ -150,7 +157,7 @@
     </head>
     <body>
         
-    <form name="myForm">
+    <form id="myForm" name="myForm">
         <div id="txts">
         <div class="exp"> Only letters with the first letter capitalized</div><input type="text" name="fname" placeholder="First Name"><br>
         <div class="exp"> Only letters with the first letter capitalized</div><input type="text" name="lname" placeholder="Last Name"><br> 
@@ -173,10 +180,10 @@
         <input id="<<" type="button" value="<<">
         <input id=">>" type="button" value=">>"><br>
         <input id="save" type="button" value="S">
-        <input id="sub" type="submit" value="SUB">
+        <input id="myBtn" type="submit" value="SUB">
         </div>
     </form>
-    <button id="myBtn">submit</button><br>
+    <!--<button id="myBtn">submit</button><br>-->
     <span id="hw">Hours Worked This Week:</span>
     <div id="invalidHOURS">
     </div>
