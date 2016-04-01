@@ -77,9 +77,9 @@
                 else{
                     document.getElementById("i").style.display = "none";
                 }
-                if(!(about.length < 26)){
+                if(!(about.trim().replace(/\s+/gi,' ').split(' ').length < 26)){
                     //the about is invalid
-                    errorMessage += "the about me needs to be less than 26 chars \n"; 
+                    errorMessage += "the about me needs to be less than 26 words \n"; 
                     document.getElementById("a").style.display = "inline";
                     b=false;
                 }
