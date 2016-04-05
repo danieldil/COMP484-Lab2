@@ -44,7 +44,7 @@
                     evt.preventDefault();
                 }
             document.getElementById('myBtn').addEventListener('click', stopDefAction, false);
-            document.getElementById("myBtn").addEventListener("click",function Validate(){
+            document.getElementById("myBtn").addEventListener("click",function(){
                 //get first name input. Check if it fits the criteria of first name
                 var f = document.forms["myForm"]["fname"].value;
                 var l = document.forms["myForm"]["lname"].value;
@@ -114,7 +114,7 @@
             document.getElementById("9").addEventListener("click",function(){document.getElementById("txt").innerHTML += "9";});
             document.getElementById("0").addEventListener("click",function(){document.getElementById("txt").innerHTML += "0";});
             document.getElementById("c").addEventListener("click",function(){document.getElementById("txt").innerHTML = "";});
-            document.getElementById("<<").addEventListener("click",function leftShift(){
+            document.getElementById("<<").addEventListener("click",function (){
                 //get the value from result
                 var result = document.forms["myForm"]["result"].value;
                 //check if the value is not blank
@@ -123,7 +123,7 @@
                 document.getElementById("txt").innerHTML= result;
             }
             });
-            document.getElementById(">>").addEventListener("click",function rightShift(){
+            document.getElementById(">>").addEventListener("click",function (){
                 //get the value from result
                 var result = document.forms["myForm"]["result"].value;
                 //check if the value is not blank
