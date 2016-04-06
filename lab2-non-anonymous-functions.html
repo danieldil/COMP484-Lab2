@@ -23,7 +23,7 @@
                 color: lightgreen;
             }
             html{
-                background: lightgreen;
+                background: lightblue;
             }
             #txt{
                 resize: none;
@@ -65,7 +65,13 @@
                 else{
                     document.getElementById("l").style.display = "none";
                 }
-                if(!(!isNaN(id) && id.length==9)){
+                var isnan = false;
+                for(var i = 0; i < id.length;i++){
+                    if(id.charAt(i) > "9" || id.charAt(i) < "0")
+                        isnan = true;
+                }
+                if(isnan){
+                //if(!(!isNaN(id) && id.length==9)){
                     //check if id is 9 digits and a number
                     errorMessage+= "the id needs to be 9 digits and only numbers \n"; 
                     document.getElementById("i").style.display = "inline";
@@ -184,7 +190,7 @@
                 -->
         <p id="f">the first letter of the first name needs to be capitalized<br></p>
         <p id="l">the first letter of the last name needs to be capitalized<br></p>
-        <p id="i">the id needs to be 9 digits<br></p>
+        <p id="i">the id needs to be 9 digits and only a numbers are allowed<br></p>
         <p id="a">the about me needs to be less than 26 chars<br></p>
     </div>
 </html>
