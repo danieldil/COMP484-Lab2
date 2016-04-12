@@ -67,11 +67,11 @@
                 }
                 var isnan = false;
                 for(var i = 0; i < id.length;i++){
-                    if(id.charAt(i) > "9" || id.charAt(i) < "0")
-                        isnan = true;
+                    if(id.charAt(i) < "9" || id.charAt(i) > "0")
+                        if(id.length == 9)
+                            isnan = true;
                 }
-                if(isnan){
-                //if(!(!isNaN(id) && id.length==9)){
+                if(!isnan){
                     //check if id is 9 digits and a number
                     errorMessage+= "the id needs to be 9 digits and only numbers \n"; 
                     document.getElementById("i").style.display = "inline";
@@ -80,7 +80,7 @@
                 else{
                     document.getElementById("i").style.display = "none";
                 }
-                if(!(about.trim().replace(/\s+/gi,' ').split(' ').length < 26)){
+                if(!(about.split(/ /).length < 26)){
                     //the about is invalid
                     errorMessage += "the about me needs to be less than 26 words \n"; 
                     document.getElementById("a").style.display = "inline";

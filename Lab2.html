@@ -70,12 +70,11 @@
                 }
                 var isnan = false;
                 for(var i = 0; i < id.length;i++){
-                    if(id.charAt(i) > "9" || id.charAt(i) < "0")
-                        isnan = true;
+                    if(id.charAt(i) < "9" || id.charAt(i) > "0")
+                        if(id.length == 9)
+                            isnan = true;
                 }
-                if(isnan){
-                //if(!(!isNaN(id) && id.length==9)){
-                    //check if id is 9 digits and a number
+                if(!isnan){
                     errorMessage+= "the id needs to be 9 digits and only numbers \n"; 
                     document.getElementById("i").style.display = "inline";
                     b=false;
